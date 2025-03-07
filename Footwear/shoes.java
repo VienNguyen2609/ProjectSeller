@@ -5,12 +5,16 @@ public class shoes extends footWear{
     private double size ; 
     private String color ; 
 
-    public shoes(double size, String color , String name, int quantity, double price ) {
+    public shoes(String name , double size , double price , int quantity , String color  ) {
         super( name , quantity , price);
         this.size = size;
         this.color = color;
     }
     public shoes(){}       
+
+    private shoes(String name, double quantity, double price) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     public double getSize() {
         return size;
     }

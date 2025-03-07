@@ -9,19 +9,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-public class FormCreateAcc extends javax.swing.JFrame { 
+public class FormCreateAcc extends javax.swing.JFrame {
+
     public FormCreateAcc() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
-    
+    // bắt lổi tiếng việt 
+    public static boolean containsVietnameseCharacters(String text) {
+        String vietnamesePattern = ".*[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ].*";
+        return text.matches(vietnamesePattern);
+    }
     String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     String url = "jdbc:sqlserver://localhost:1433;databaseName=USERLOGIN;user=sa;password=26092005;encrypt= false;";
-    String user = "sa"; 
-    String password = "26092005"; 
-    Statement st ; 
-    ResultSet rs ; 
+    String user = "sa";
+    String password = "26092005";
+    Statement st;
+    ResultSet rs;
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -41,6 +47,8 @@ public class FormCreateAcc extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         image = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -146,6 +154,14 @@ public class FormCreateAcc extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, -1, 30));
 
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("HIDE");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, -1, 20));
+
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("HIDE");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, -1, 20));
+
         image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconImage/IconLogin.jpg"))); // NOI18N
         getContentPane().add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 350));
 
@@ -186,7 +202,16 @@ public class FormCreateAcc extends javax.swing.JFrame {
                 return;
             }
             if (txtpass.getText() == null || !txtconfirm.getText().equals(txtpass.getText())) {
-                int b = JOptionPane.showConfirmDialog(this, " PASSWORD FALSE", "CONFIRM", JOptionPane.CLOSED_OPTION);
+                int b = JOptionPane.showConfirmDialog(this, " PASSWORD DO NOT MATCH", "CONFIRM", JOptionPane.CLOSED_OPTION);
+                return;
+            }
+            if (!txtgmail.getText().contains("@gmail.com")) {
+                JOptionPane.showMessageDialog(this, "GMAIL FALSE ! ");
+                return;
+            }
+            String inputText = txtname.getText();
+            if (containsVietnameseCharacters(inputText)) {
+                JOptionPane.showMessageDialog(this, "USER NAME FALSE ! ");
                 return;
             }
             Class.forName(driver);
@@ -262,6 +287,8 @@ public class FormCreateAcc extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JCheckBox showConfirm;
     private javax.swing.JCheckBox showPass;
     private javax.swing.JPasswordField txtconfirm;
