@@ -1,5 +1,6 @@
 package Jlogin;
-import JCreateAcc.Form;
+import JCreateAcc.FormCreateAcc;
+import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.Statement;
@@ -13,6 +14,8 @@ import menu.Home;
 public class LoginUser extends javax.swing.JFrame {
     public LoginUser() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
     String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     String url = "jdbc:sqlserver://localhost:1433;databaseName=USERLOGIN;user=sa;password=26092005;encrypt= false;";
@@ -20,6 +23,7 @@ public class LoginUser extends javax.swing.JFrame {
     String password = "26092005"; 
     Statement st ; 
     ResultSet rs ; 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -47,17 +51,17 @@ public class LoginUser extends javax.swing.JFrame {
         jLabel2.setText("SIGN IN!");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Name:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Password:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 100, -1));
 
-        txtname.setBackground(new java.awt.Color(102, 255, 255));
+        txtname.setBackground(new java.awt.Color(153, 255, 255));
         txtname.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,14 +70,13 @@ public class LoginUser extends javax.swing.JFrame {
         });
         getContentPane().add(txtname, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 170, -1));
 
-        txtpass.setBackground(new java.awt.Color(102, 255, 255));
+        txtpass.setBackground(new java.awt.Color(153, 255, 255));
         txtpass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         getContentPane().add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 170, -1));
 
         showp.setBackground(new java.awt.Color(0, 0, 0));
         showp.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         showp.setForeground(new java.awt.Color(255, 255, 255));
-        showp.setSelected(true);
         showp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 showpMouseClicked(evt);
@@ -105,6 +108,7 @@ public class LoginUser extends javax.swing.JFrame {
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 10, 10, -1));
 
         login.setBackground(new java.awt.Color(51, 51, 255));
+        login.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         login.setForeground(new java.awt.Color(255, 255, 255));
         login.setText("LOGIN!");
         login.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +119,7 @@ public class LoginUser extends javax.swing.JFrame {
         getContentPane().add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 90, -1));
 
         jButton1.setBackground(new java.awt.Color(255, 0, 51));
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("NEW ACCCOUNT!");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -151,65 +156,65 @@ public class LoginUser extends javax.swing.JFrame {
     }//GEN-LAST:event_showpActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-         try{
-             Class.forName(driver);
-            Connection conn = DriverManager.getConnection(url , user , password );
-            if(txtname.getText().trim().isEmpty()| txtpass.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this,"INFORMATION CAN'T BE EMPTY","ERROR",JOptionPane.CANCEL_OPTION);
-          }
-          else {
-                String sql = "SELECT * FROM ACCOUNT where username=? AND pass=?"; 
+        try {
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url, user, password);
+            if (txtname.getText().trim().isEmpty() | txtpass.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "INFORMATION CAN'T BE EMPTY", "ERROR", JOptionPane.CANCEL_OPTION);
+            } else {
+                String sql = "SELECT * FROM ACCOUNT where username=? AND pass=?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, txtname.getText().trim());
                 ps.setString(2, txtpass.getText().trim());
-                ResultSet rs = ps.executeQuery(); 
-                if(rs.next()){
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
                     JOptionPane.showMessageDialog(this, "LOGIN SUCCESSFUL!");
-                    Home h= new Home();
+                    Home h = new Home();
                     h.setVisible(true);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, " FAILS ,CAN'T LOGIN\n"
                             + "check your password or name!");
                 }
                 rs.close();
                 ps.close();
-                  }
-        conn.close();
-         }catch(Exception ex){
-             ex.printStackTrace();
-         }
+            }
+            conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_loginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int a = JOptionPane.showConfirmDialog(this, "GO TO CREATE ACC.....!","Confirm", JOptionPane.YES_NO_OPTION);
-        if(a == JOptionPane.YES_OPTION){
-         Form fr = new Form();
-        fr.setVisible(true );
+        int a = JOptionPane.showConfirmDialog(this, "GO TO CREATE ACC.....!", "Confirm", JOptionPane.YES_NO_OPTION);
+        if (a == JOptionPane.YES_OPTION) {
+            FormCreateAcc fr = new FormCreateAcc();
+            fr.setVisible(true);
+            fr.setResizable(false);
+
+        } else {
+            return;
         }
-        else{
-            return ;
-        }
-      this.dispose(); 
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnameActionPerformed
-       txtname.addKeyListener(new KeyAdapter() {
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            txtpass.requestFocus();
-        }
-    }
-});
-txtname.addActionListener(e -> txtpass.requestFocus()); 
+        txtname.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    txtpass.requestFocus();
+                }
+            }
+        });
+        txtname.addActionListener(e -> txtpass.requestFocus());
     }//GEN-LAST:event_txtnameActionPerformed
 
    
     public static void main(String args[]) {
        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginUser().setVisible(true);
-            }
+                LoginUser lu = new LoginUser();
+                lu.setVisible(true);            }
         });
     }
 

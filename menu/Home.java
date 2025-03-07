@@ -14,7 +14,7 @@ public class Home extends javax.swing.JFrame {
     private static int pos = 0 ;
     public Home() {
         initComponents();
-        l.add(new shoes( 1 , "", "", 1 ,1 ));
+        l.add(new shoes( 1 , "con cac ", "con cac", 1 ,1 ));
         View();
         ViewTable();
      }  
@@ -34,7 +34,7 @@ public class Home extends javax.swing.JFrame {
         model.addRow(new Object[]{n++, x.getName(),x.getSize(),x.getPrice(),x.getQuantity(),x.getColor()});
         }
     }
-    int width = 183  , height = 525 ; 
+    int width = 183  , height = 625 ; 
     void openMenuBar(){
         new Thread(new Runnable() {
             @Override
@@ -76,13 +76,14 @@ public class Home extends javax.swing.JFrame {
         javax.swing.JLabel jLabel11 = new javax.swing.JLabel();
         pnMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        signout = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         pnContainer = new javax.swing.JPanel();
         Account = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -123,7 +124,7 @@ public class Home extends javax.swing.JFrame {
 
         pnMain.setBackground(new java.awt.Color(153, 153, 153));
         pnMain.setForeground(new java.awt.Color(255, 255, 255));
-        pnMain.setPreferredSize(new java.awt.Dimension(840, 550));
+        pnMain.setPreferredSize(new java.awt.Dimension(1000, 550));
         pnMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         threesoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconImage/logoshop1.jpeg"))); // NOI18N
@@ -134,7 +135,7 @@ public class Home extends javax.swing.JFrame {
         });
         pnMain.add(threesoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 31, 35));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("X");
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,8 +143,9 @@ public class Home extends javax.swing.JFrame {
                 jLabel12MouseClicked(evt);
             }
         });
-        pnMain.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(803, 6, 31, 35));
+        pnMain.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 0, 20, 40));
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText(" __");
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -151,7 +153,7 @@ public class Home extends javax.swing.JFrame {
                 jLabel11MouseClicked(evt);
             }
         });
-        pnMain.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(765, 6, 20, 25));
+        pnMain.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 0, 30, 30));
 
         pnMenu.setBackground(new java.awt.Color(204, 255, 255));
         pnMenu.setForeground(new java.awt.Color(255, 255, 255));
@@ -166,62 +168,77 @@ public class Home extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        pnMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 152));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Trang Chủ");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-        });
-        pnMenu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 93, -1));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("Hóa Đơn");
-        pnMenu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 81, -1));
+        pnMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 120));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Giới Thiệu");
-        pnMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, -1, -1));
+        pnMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, -1, -1));
 
-        signout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        signout.setText("Đăng Xuất");
-        signout.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton2.setBackground(new java.awt.Color(204, 255, 255));
+        jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton2.setText("Trang Chủ");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                signoutMouseClicked(evt);
+                jButton2MouseClicked(evt);
             }
         });
-        pnMenu.add(signout, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, 30));
+        pnMenu.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel9.setText("Tài Khoản");
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton3.setBackground(new java.awt.Color(204, 255, 255));
+        jButton3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton3.setText("Mua Sắm");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
+                jButton3MouseClicked(evt);
             }
         });
-        pnMenu.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 93, -1));
+        pnMenu.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel13.setText("Mua Sắm");
-        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton4.setBackground(new java.awt.Color(204, 255, 255));
+        jButton4.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton4.setText("Chỉnh Sửa SP");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel13MouseClicked(evt);
+                jButton4MouseClicked(evt);
             }
         });
-        pnMenu.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 80, 30));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel14.setText("Chỉnh Sửa Sản Phẩm");
-        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel14MouseClicked(evt);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
-        pnMenu.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 255, -1, 30));
+        pnMenu.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 130, -1));
 
-        pnMain.add(pnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1, 500));
+        jButton5.setBackground(new java.awt.Color(204, 255, 255));
+        jButton5.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton5.setText("Hóa Đơn");
+        pnMenu.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+
+        jButton6.setBackground(new java.awt.Color(204, 255, 255));
+        jButton6.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton6.setText("Login Out");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
+        pnMenu.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
+
+        jButton7.setBackground(new java.awt.Color(204, 255, 255));
+        jButton7.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton7.setText("Account");
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
+        pnMenu.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
+
+        jButton8.setBackground(new java.awt.Color(204, 255, 255));
+        jButton8.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jButton8.setText("Introduce");
+        pnMenu.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, -1, -1));
+
+        pnMain.add(pnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1, 550));
 
         pnContainer.setLayout(new java.awt.CardLayout());
 
@@ -236,16 +253,17 @@ public class Home extends javax.swing.JFrame {
         Account.setLayout(AccountLayout);
         AccountLayout.setHorizontalGroup(
             AccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AccountLayout.createSequentialGroup()
-                .addGap(345, 345, 345)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccountLayout.createSequentialGroup()
+                .addContainerGap(539, Short.MAX_VALUE)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(385, Short.MAX_VALUE))
+                .addGap(484, 484, 484))
         );
         AccountLayout.setVerticalGroup(
             AccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AccountLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel8)
-                .addGap(0, 425, Short.MAX_VALUE))
+                .addContainerGap(547, Short.MAX_VALUE))
         );
 
         pnContainer.add(Account, "card3");
@@ -277,7 +295,7 @@ public class Home extends javax.swing.JFrame {
                         .addGroup(homeShopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel10)
                             .addComponent(jLabel6))))
-                .addContainerGap(671, Short.MAX_VALUE))
+                .addContainerGap(964, Short.MAX_VALUE))
         );
         homeShopLayout.setVerticalGroup(
             homeShopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,7 +306,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addContainerGap(450, Short.MAX_VALUE))
         );
 
         pnContainer.add(homeShop, "card4");
@@ -463,15 +481,17 @@ public class Home extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(181, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -483,9 +503,9 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addGap(291, 291, 291))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(305, 305, 305)
+                .addGap(435, 435, 435)
                 .addComponent(jLabel15)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -498,7 +518,7 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 16, Short.MAX_VALUE))
         );
 
         editProduct.add(jPanel1, "card2");
@@ -517,53 +537,27 @@ public class Home extends javax.swing.JFrame {
         home.setLayout(homeLayout);
         homeLayout.setHorizontalGroup(
             homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homeLayout.createSequentialGroup()
-                .addGap(358, 358, 358)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeLayout.createSequentialGroup()
+                .addContainerGap(538, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(370, Short.MAX_VALUE))
+                .addGap(483, 483, 483))
         );
         homeLayout.setVerticalGroup(
             homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homeLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addComponent(jLabel7)
-                .addContainerGap(425, Short.MAX_VALUE))
+                .addContainerGap(545, Short.MAX_VALUE))
         );
 
         pnContainer.add(home, "card2");
 
-        pnMain.add(pnContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(7, 53, 827, 450));
+        pnMain.add(pnContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 33, 1120, 590));
 
-        getContentPane().add(pnMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 500));
+        getContentPane().add(pnMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1120, 620));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-       Account.setVisible(false);
-       home.setVisible(true);
-       editProduct.setVisible(false);
-        threesoc.setVisible(true);
-    }//GEN-LAST:event_jLabel2MouseClicked
-
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-        Account.setVisible(true);
-       home.setVisible(false);
-        threesoc.setVisible(true);
-    }//GEN-LAST:event_jLabel9MouseClicked
-
-    private void signoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signoutMouseClicked
-       int dk = JOptionPane.showConfirmDialog(this,"SIGNOUT ACCOUNT CURRENTLY ?","CONFIRM" , JOptionPane.YES_NO_OPTION);
-        LoginUser lu = new LoginUser();
-       if(dk == JOptionPane.YES_OPTION){
-           lu.setVisible(true);
-           Home hm = new Home();
-           hm.setVisible(false);
-       }
-       else{
-           return ; 
-       }
-       this.dispose();
-    }//GEN-LAST:event_signoutMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         closeMenuBar();
@@ -582,23 +576,6 @@ public class Home extends javax.swing.JFrame {
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
       System.exit(0);
     }//GEN-LAST:event_jLabel12MouseClicked
-
-    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-        closeMenuBar(); 
-        Account.setVisible(false);
-        home.setVisible(false);
-        threesoc.setVisible(true);
-        homeShop.setVisible(true);     
-    }//GEN-LAST:event_jLabel13MouseClicked
-
-    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-        closeMenuBar(); 
-        Account.setVisible(false);
-        home.setVisible(false);
-        threesoc.setVisible(true);
-        homeShop.setVisible(false); 
-        editProduct.setVisible(true);
-    }//GEN-LAST:event_jLabel14MouseClicked
 
     private void btnDeletePActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePActionPerformed
         // TODO add your handling code here:
@@ -634,6 +611,53 @@ public class Home extends javax.swing.JFrame {
     private void btnAddPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddPActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        Account.setVisible(false);
+        home.setVisible(true);
+        editProduct.setVisible(false);
+        threesoc.setVisible(true);
+        homeShop.setVisible(false);
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        closeMenuBar(); 
+        Account.setVisible(false);
+        home.setVisible(false);
+        threesoc.setVisible(true);
+        homeShop.setVisible(true);   
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        closeMenuBar(); 
+        Account.setVisible(false);
+        home.setVisible(false);
+        threesoc.setVisible(true);
+        homeShop.setVisible(false); 
+        editProduct.setVisible(true);
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        int dk = JOptionPane.showConfirmDialog(this,"SIGNOUT ACCOUNT CURRENTLY ?","CONFIRM" , JOptionPane.YES_NO_OPTION);
+       if(dk == JOptionPane.YES_OPTION){
+          new LoginUser().setVisible(true);
+          new Home().setVisible(false);
+       }
+       else{
+           return ; 
+       }
+       this.dispose();
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+         Account.setVisible(true);
+         home.setVisible(false);
+         threesoc.setVisible(true);
+    }//GEN-LAST:event_jButton7MouseClicked
 
     public static void main(String args[]) {
         try {
@@ -671,26 +695,28 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel home;
     private javax.swing.JPanel homeShop;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -698,7 +724,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel pnContainer;
     private javax.swing.JPanel pnMain;
     private javax.swing.JPanel pnMenu;
-    private javax.swing.JLabel signout;
     private javax.swing.JTable tbProduct;
     private javax.swing.JLabel threesoc;
     private javax.swing.JTextField txtColor;
