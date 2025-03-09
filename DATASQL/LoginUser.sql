@@ -3,12 +3,21 @@ go
 use USERLOGIN 
 go
 create table account(
-username varchar(20) unique , 
+username varchar(20) , 
 pass char(10) , 
 gmail nchar(50 ) , 
-confirm char(20) , 
+Constraint PK_US primary key ( username)
 ) 
+
+create table productSeller(
+nameProduct varchar(30) primary key ,
+size int , 
+price money , 
+quantity int , 
+color varchar(20)
+)
+
 select * from account
-DELETE  FROM account
-
-
+select * from productSeller
+select * from productSeller where nameProduct like 'tuan'
+delete from account 

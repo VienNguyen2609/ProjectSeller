@@ -2,10 +2,10 @@ package Footwear;
 import java.util.Objects;
 import java.util.Scanner;
 public class shoes extends footWear{
-    private double size ; 
+    private int size ; 
     private String color ; 
 
-    public shoes(String name , double size , double price , int quantity , String color  ) {
+    public shoes(String name , int size , double price , int quantity , String color  ) {
         super( name , quantity , price);
         this.size = size;
         this.color = color;
@@ -19,7 +19,7 @@ public class shoes extends footWear{
         return size;
     }
 
-    public void setSize(double size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
@@ -57,7 +57,7 @@ public class shoes extends footWear{
        System.out.print("Color: ");
        color = sc.nextLine();
        System.out.print("Size: ");
-       size = sc.nextDouble() ; 
+       size = sc.nextInt(); 
       
    }
   

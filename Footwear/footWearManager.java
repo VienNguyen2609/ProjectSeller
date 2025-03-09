@@ -5,39 +5,43 @@ import java.util.Set;
 public class footWearManager implements IfootWearmanager{
     private ArrayList<shoes> l = new ArrayList<>();
     private Set<footWear> footwearSet = new HashSet<>();
-     private boolean isIdExists(String name) {
-        for (footWear f : l ) {
+
+    private boolean isIdExists(String name) {
+        for (footWear f : l) {
             if (f.getName().equals(name)) {
-                return true; 
+                return true;
             }
         }
         return false;
-    } 
-    public footWearManager(ArrayList<shoes> l){
+    }
+
+    public footWearManager(ArrayList<shoes> l) {
         this.l = l;
     }
-    public footWearManager(){}
-    public void output(){
-        if(l == null ){
+
+    public footWearManager() {
+    }
+
+    public void output() {
+        if (l == null) {
             System.out.println("LIST IS EMPTY");
-            return ;
-        }
-        else{
-            int i = 1 ; 
-            for(shoes n : l){
-                System.out.println("PRODUCT "+i+": "+n.toString());
-                i++ ;
+            return;
+        } else {
+            int i = 1;
+            for (shoes n : l) {
+                System.out.println("PRODUCT " + i + ": " + n.toString());
+                i++;
             }
         }
     }
+
     @Override
-    public  void addShoes(shoes e) throws Exception {
-        if( isIdExists(e.getName())){
-            throw new Exception("Invalid Additional Products: "+e);
-        }
-        else{
-            l.add(e); 
-            System.out.println("Addtional Successful: "+e);
+    public void addShoes(shoes e) throws Exception {
+        if (isIdExists(e.getName())) {
+            throw new Exception("Invalid Additional Products: " + e);
+        } else {
+            l.add(e);
+            System.out.println("Addtional Successful: " + e);
         }
     }
     @Override
@@ -67,11 +71,11 @@ public class footWearManager implements IfootWearmanager{
         }
     }
     @Override
-   public double totalTax(){
-       double sum  = 0 ; 
-       for(shoes n : l){
-           sum += n.totalPrice();
-       }
-       return sum ;
-   }
+    public double totalTax() {
+        double sum = 0;
+        for (shoes n : l) {
+            sum += n.totalPrice();
+        }
+        return sum;
+    }
 }
