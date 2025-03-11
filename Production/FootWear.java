@@ -1,18 +1,35 @@
-package Footwear;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Production;
+
 import java.util.Objects;
 import java.util.Scanner;
 
-public abstract class footWear {
+public abstract class FootWear {
     private String  name; 
     private int quantity; 
     private double price ; 
-    public footWear(){
+    private String idProduct;
+    public FootWear(){
     }
-    public footWear(String name, int quantity, double price) {
+    public FootWear(String idProduct , String name, int quantity, double price) {
+        this.idProduct= idProduct ;
         this.name = name;
         this.quantity = quantity;
         this.price = price;
     }
+
+    public String getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(String idProduct) {
+        this.idProduct = idProduct;
+    }
+
+    
 
     public String getName() {
         return name;
@@ -37,17 +54,12 @@ public abstract class footWear {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    @Override
-    public String toString() {
-        return "footWear{" + ", name=" + name + ", quantity=" + quantity + ", price=" + price + '}';
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true; 
         if (o == null || getClass() != o.getClass()) return false;    
-        footWear fw = (footWear) o;
-        return quantity == fw.quantity
+        FootWear fw = (FootWear) o;
+        return idProduct == fw.idProduct && quantity == fw.quantity
             && Double.compare(price, fw.price) == 0
             && Objects.equals(name, fw.name);
     }
@@ -56,14 +68,11 @@ public abstract class footWear {
         return Objects.hash(quantity,name,price);
     }
     public abstract double totalPrice();
-    public void input(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Product Information");
-        System.out.print("Name Product: ");
-        name = sc.nextLine();
-        System.out.print("Price Product: ");
-        price = sc.nextDouble(); 
-        System.out.print("Quantity Product: ");
-        quantity = sc.nextInt() ; 
+
+    @Override
+    public String toString() {
+        return "FootWear{" + "name=" + name + ", quantity=" + quantity + ", price=" + price + ", id=" + idProduct + '}';
     }
+   
 }
+

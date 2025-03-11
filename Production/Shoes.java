@@ -1,18 +1,18 @@
-package Footwear;
+package Production;
 import java.util.Objects;
-import java.util.Scanner;
-public class shoes extends footWear{
+
+public class Shoes extends FootWear{
     private int size ; 
     private String color ; 
-
-    public shoes(String name , int size , double price , int quantity , String color  ) {
-        super( name , quantity , price);
+    
+    public Shoes(String id , String name , int size , double price , int quantity , String color  ) {
+        super( id , name , quantity , price);
         this.size = size;
         this.color = color;
     }
-    public shoes(){}       
+    public Shoes(){}       
 
-    private shoes(String name, double quantity, double price) {
+    private Shoes(String name, double quantity, double price) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     public double getSize() {
@@ -35,30 +35,23 @@ public class shoes extends footWear{
         if (this == o) return true; 
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-         shoes sh = (shoes) o; 
+         Shoes sh = (Shoes) o; 
         return Double.compare(size, sh.size) == 0 && Objects.equals(color, sh.color);
     }
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), size, color);
-    }
-    @Override
-    public String toString() {
-        return super.toString()+" , shoes{" + "size=" + size + ", color=" + color + '}';
-    }
+    } 
     @Override
      public double totalPrice(){
         return getPrice() * getQuantity() ; 
      } 
+
     @Override
-   public void input(){
-       Scanner sc = new Scanner(System.in);
-       super.input(); 
-       System.out.print("Color: ");
-       color = sc.nextLine();
-       System.out.print("Size: ");
-       size = sc.nextInt(); 
-      
-   }
+    public String toString() {
+        return super.toString()+"Shoes{" + "size=" + size + ", color=" + color + '}';
+    }
+  
+   
   
 }
