@@ -1,5 +1,6 @@
-package data;
-import AccountData.Account;
+package DataFromSQL;
+
+import ClassAccount.Account;
 import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
 public class AccountManager {
+
     private static final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private final static String url = "jdbc:sqlserver://localhost:1433;databaseName=USERLOGIN;user=sa;password=26092005;encrypt= false;";
     private final static String user = "sa";
@@ -27,6 +30,24 @@ public class AccountManager {
         isInitiallized = true;
     }
 
+    public boolean LoginUser(String name, String pass) {
+        boolean check = false;
+        try {
+            if (name.isEmpty() | pass.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "INFORMATION CAN'T BE EMPTY", "ERROR", JOptionPane.CANCEL_OPTION);
+            } else {
+                for (Account account : this.account) {
+                    if (account.getName().equalsIgnoreCase(name) && (String.valueOf(account.getPass()).equalsIgnoreCase(pass))) {
+                        check = true ;
+                        break;
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return check ;
+    }
     public void LoadAccount() {
         try {
             Class.forName(driver);
@@ -40,7 +61,7 @@ public class AccountManager {
                 String name = rs.getString("username");
                 String pass = rs.getString("pass");
                 String gmail = rs.getString("gmail");
-                Account _account = new Account(id ,name, pass, gmail);
+                Account _account = new Account(id, name, pass, gmail);
                 this.account.add(_account);
             }
             rs.close();
@@ -56,5 +77,6 @@ public class AccountManager {
     public ArrayList<Account> getDataAccount() {
         return account;
     }
-
+    
+   
 }

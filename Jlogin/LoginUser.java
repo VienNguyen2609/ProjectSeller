@@ -1,28 +1,30 @@
 package Jlogin;
+
 import JCreateAcc.FormCreateAcc;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.beans.Statement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import javax.swing.JFrame;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import menu.Home;
+import HomeMenu.Home;
+import DataFromSQL.AccountManager;
+
 public class LoginUser extends javax.swing.JFrame {
+
     public LoginUser() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
+
     String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     String url = "jdbc:sqlserver://localhost:1433;databaseName=USERLOGIN;user=sa;password=26092005;encrypt= false;";
-    String user = "sa"; 
-    String password = "26092005"; 
-    Statement st ; 
-    ResultSet rs ; 
-    
+    String user = "sa";
+    String password = "26092005";
+    Statement st;
+    ResultSet rs;
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -143,15 +145,15 @@ public class LoginUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-       System.exit(0);   
+        System.exit(0);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-         this.setState(JFrame.ICONIFIED);
+        this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void showpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showpMouseClicked
-     if (showp.isSelected()) {
+        if (showp.isSelected()) {
             txtpass.setEchoChar((char) 0);
         } else {
             txtpass.setEchoChar('*');
@@ -159,36 +161,28 @@ public class LoginUser extends javax.swing.JFrame {
     }//GEN-LAST:event_showpMouseClicked
 
     private void showpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showpActionPerformed
-     
+
     }//GEN-LAST:event_showpActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+        AccountManager.Init();
+        AccountManager.instance.LoadAccount();
         try {
-            Class.forName(driver);
-            Connection conn = DriverManager.getConnection(url, user, password);
-            if (txtname.getText().trim().isEmpty() | txtpass.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "INFORMATION CAN'T BE EMPTY", "ERROR", JOptionPane.CANCEL_OPTION);
+            String name = this.txtname.getText().trim();
+            String pass = this.txtpass.getText().trim();
+            if (AccountManager.instance.LoginUser(name, pass)) {
+                JOptionPane.showMessageDialog(this, "LOGIN SUCCESFULLY");
+                new LoginUser().setVisible(false);
+                new Home().setVisible(true);
+                return;
             } else {
-                String sql = "SELECT * FROM ACCOUNT where username=? AND pass=?";
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1, txtname.getText().trim());
-                ps.setString(2, txtpass.getText().trim());
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    JOptionPane.showMessageDialog(this, "LOGIN SUCCESSFUL!");
-                    Home h = new Home();
-                    h.setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(this, " FAILS ,CAN'T LOGIN\n"
-                            + "check your password or name!");
-                }
-                rs.close();
-                ps.close();
+                JOptionPane.showMessageDialog(this, "LOGIN FAILD!\n"
+                        + "CHECK PASSWORD OR NAME");
             }
-            conn.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Unexpected error: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_loginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -197,7 +191,6 @@ public class LoginUser extends javax.swing.JFrame {
             FormCreateAcc fr = new FormCreateAcc();
             fr.setVisible(true);
             fr.setResizable(false);
-
         } else {
             return;
         }
@@ -216,12 +209,12 @@ public class LoginUser extends javax.swing.JFrame {
         txtname.addActionListener(e -> txtpass.requestFocus());
     }//GEN-LAST:event_txtnameActionPerformed
 
-   
     public static void main(String args[]) {
-       java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 LoginUser lu = new LoginUser();
-                lu.setVisible(true);            }
+                lu.setVisible(true);
+            }
         });
     }
 

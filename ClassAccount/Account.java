@@ -1,4 +1,8 @@
-package AccountData;
+package ClassAccount;
+
+import DataFromSQL.AccountManager;
+
+
 public class Account {
     private String name, pass , gmail ; 
     private int idUser ;
@@ -41,5 +45,11 @@ public class Account {
     public void setGmail(String gmail) {
         this.gmail = gmail;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Account{" + "name=" + name + ", pass=" + pass + ", gmail=" + gmail + ", idUser=" + idUser + '}';
+    }
+  
+ 
 }

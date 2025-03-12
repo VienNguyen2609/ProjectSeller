@@ -1,10 +1,10 @@
-package menu;
+package HomeMenu;
 
-import AccountData.Account;
+import ClassAccount.Account;
 import Production.Shoes;
 import Jlogin.LoginUser;
-import data.AccountManager;
-import data.ProductManager;
+import DataFromSQL.AccountManager;
+import DataFromSQL.ProductManager;
 import java.awt.Image;
 import java.beans.Statement;
 import java.sql.ResultSet;
@@ -48,7 +48,7 @@ public class Home extends javax.swing.JFrame {
         } catch (ClassCastException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
-        scaleImage();
+     
     }
 
     public boolean View() {
@@ -61,20 +61,9 @@ public class Home extends javax.swing.JFrame {
         OnOff(true, false);
         return true;
     }
-    public void scaleImage(){
-        ImageIcon icon = new ImageIcon(getClass().getResource("/IconProduct/result_homepage interface for a shoe store.png"));
-        Image img = icon.getImage();
-        Image imgScale = img.getScaledInstance(Productshop1.getWidth(), Productshop1.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon acalledIcon = new ImageIcon(imgScale );
-        homeLabel.setIcon(acalledIcon);
-    }
-    public void scaleImage1(){
-        ImageIcon icon = new ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.png"));
-        Image img = icon.getImage();
-        Image imgScale = img.getScaledInstance(ProductShop1.getWidth(), ProductShop1.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon acalledIcon = new ImageIcon(imgScale );
-        ProductShop1.setIcon(acalledIcon);
-    }
+
+
+
     public void ViewProduct() throws SQLException, ClassCastException {
 
         ProductManager.Init();
@@ -104,15 +93,17 @@ public class Home extends javax.swing.JFrame {
         AccountManager.instance.LoadAccount();
         loadTableAccount();
     }
-    public void loadTableAccount(){
+
+    public void loadTableAccount() {
         DefaultTableModel model = (DefaultTableModel) this.tbAccount.getModel();
         model.setNumRows(0);
         var data = AccountManager.instance.getDataAccount();
-        int n = 1 ;
-         for (Account account : data) {
-            model.addRow(new Object[]{n++,account.getIdUser(),account.getName(), account.getPass(), account.getGmail()});
+        int n = 1;
+        for (Account account : data) {
+            model.addRow(new Object[]{n++, account.getIdUser(), account.getName(), account.getPass(), account.getGmail()});
         }
     }
+
     void openMenuBar() {
         int width = 182, height = 650;
         new Thread(new Runnable() {
@@ -177,8 +168,8 @@ public class Home extends javax.swing.JFrame {
         tbAccount = new javax.swing.JTable();
         homeShop = new javax.swing.JPanel();
         ProductShop1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -198,8 +189,8 @@ public class Home extends javax.swing.JFrame {
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
@@ -307,11 +298,6 @@ public class Home extends javax.swing.JFrame {
                 jButton2MouseClicked(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
         pnMenu.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
 
         jButton3.setBackground(new java.awt.Color(204, 255, 255));
@@ -397,7 +383,7 @@ public class Home extends javax.swing.JFrame {
         home.setForeground(new java.awt.Color(255, 255, 255));
         home.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        homeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/result_homepage interface for a shoe store.png"))); // NOI18N
+        homeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageHome.png"))); // NOI18N
         homeLabel.setText("jLabel3");
         home.add(homeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, 590));
 
@@ -472,7 +458,7 @@ public class Home extends javax.swing.JFrame {
         homeShop.setForeground(new java.awt.Color(255, 204, 204));
         homeShop.setPreferredSize(new java.awt.Dimension(190, 150));
 
-        ProductShop1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        ProductShop1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageHome.png"))); // NOI18N
         ProductShop1.setText("jLabel5");
         ProductShop1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -480,49 +466,49 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("GIÀY NAM NIKE  "); // NOI18N
-
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("SIZE 36 / 100.000Đ");
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("GIÀY NAM NIKE  "); // NOI18N
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel9.setText("jLabel5");
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel13.setText("jLabel5");
 
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel14.setText("jLabel5");
 
-        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel22.setText("jLabel5");
 
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel23.setText("jLabel5");
 
-        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel24.setText("jLabel5");
 
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel25.setText("jLabel5");
 
-        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel26.setText("jLabel5");
 
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel27.setText("jLabel5");
 
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel29.setText("jLabel5");
 
-        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel35.setText("jLabel5");
 
-        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel36.setText("jLabel5");
 
-        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel37.setText("jLabel5");
 
         jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -543,11 +529,11 @@ public class Home extends javax.swing.JFrame {
         jLabel38.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel38.setText("SIZE 36 / 100.000Đ");
 
-        jLabel39.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel39.setText("SIZE 36 / 100.000Đ");
-
         jLabel40.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel40.setText("SIZE 36 / 100.000Đ");
+
+        jLabel39.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel39.setText("SIZE 36 / 100.000Đ");
 
         jLabel41.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel41.setText("GIÀY NAM NIKE  "); // NOI18N
@@ -564,7 +550,7 @@ public class Home extends javax.swing.JFrame {
         jLabel45.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel45.setText("GIÀY NAM NIKE  "); // NOI18N
 
-        jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/Screenshot_19-2-2025_153650_nhaxinhplaza.vn_1.jpeg"))); // NOI18N
+        jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageProduct.jpeg"))); // NOI18N
         jLabel46.setText("jLabel5");
 
         jLabel47.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -695,7 +681,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnContainer.add(homeShop, "card4");
@@ -1222,14 +1208,6 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void ProductShop1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductShop1MouseClicked
-        JOptionPane.showConfirmDialog(this, "BUY THIS PRODUCT", "COFIRM", JOptionPane.YES_NO_OPTION);
-    }//GEN-LAST:event_ProductShop1MouseClicked
-
     private void txtPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPriceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPriceActionPerformed
@@ -1237,6 +1215,10 @@ public class Home extends javax.swing.JFrame {
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDActionPerformed
+
+    private void ProductShop1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductShop1MouseClicked
+        JOptionPane.showConfirmDialog(this, "BUY THIS PRODUCT", "COFIRM", JOptionPane.YES_NO_OPTION);
+    }//GEN-LAST:event_ProductShop1MouseClicked
 
     public static void main(String args[]) {
         try {
