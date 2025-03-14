@@ -1,27 +1,15 @@
 package ClassAccount;
 
-import DataFromSQL.AccountManager;
-
 
 public class Account {
     private String name, pass , gmail ; 
-    private int idUser ;
-    public Account(int idUser ,String name, String pass, String gmail) {
-        this.idUser = idUser;
+    public Account( String name, String pass, String gmail) {
         this.name = name;
         this.pass = pass;
         this.gmail = gmail;
     }
     public Account(){}
-
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
-
+    
     public String getName() {
         return name;
     }
@@ -46,10 +34,5 @@ public class Account {
         this.gmail = gmail;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" + "name=" + name + ", pass=" + pass + ", gmail=" + gmail + ", idUser=" + idUser + '}';
-    }
-  
- 
+   
 }

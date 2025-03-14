@@ -5,8 +5,8 @@ public class Shoes extends FootWear{
     private int size ; 
     private String color ; 
     
-    public Shoes(String id , String name , int size , double price , int quantity , String color  ) {
-        super( id , name , quantity , price);
+    public Shoes(String idProduct , String name , int size , double price , int quantity , String color  ) {
+        super( idProduct , name , quantity , price);
         this.size = size;
         this.color = color;
     }

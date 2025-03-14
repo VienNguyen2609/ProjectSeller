@@ -3,9 +3,7 @@ package Jlogin;
 import JCreateAcc.FormCreateAcc;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.beans.Statement;
 import javax.swing.JFrame;
-import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import HomeMenu.Home;
 import DataFromSQL.AccountManager;
@@ -17,14 +15,6 @@ public class LoginUser extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
-
-    String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    String url = "jdbc:sqlserver://localhost:1433;databaseName=USERLOGIN;user=sa;password=26092005;encrypt= false;";
-    String user = "sa";
-    String password = "26092005";
-    Statement st;
-    ResultSet rs;
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -172,9 +162,8 @@ public class LoginUser extends javax.swing.JFrame {
             String pass = this.txtpass.getText().trim();
             if (AccountManager.instance.LoginUser(name, pass)) {
                 JOptionPane.showMessageDialog(this, "LOGIN SUCCESFULLY");
-                new LoginUser().setVisible(false);
                 new Home().setVisible(true);
-                return;
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "LOGIN FAILD!\n"
                         + "CHECK PASSWORD OR NAME");

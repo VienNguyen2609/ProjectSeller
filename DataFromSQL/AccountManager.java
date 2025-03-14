@@ -1,27 +1,20 @@
+
 package DataFromSQL;
 
 import ClassAccount.Account;
-import java.beans.Statement;
+import ConnectSQL.SQLConnector;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class AccountManager {
 
-    private static final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private final static String url = "jdbc:sqlserver://localhost:1433;databaseName=USERLOGIN;user=sa;password=26092005;encrypt= false;";
-    private final static String user = "sa";
-    private final static String password = "26092005";
-    private static Statement st;
-    private static ResultSet rs;
+public class AccountManager {
     ArrayList<Account> account = new ArrayList<>();
     public static AccountManager instance;
     private static boolean isInitiallized = false;
-
     public static void Init() {
         if (isInitiallized == true) {
             return;
@@ -34,7 +27,8 @@ public class AccountManager {
         boolean check = false;
         try {
             if (name.isEmpty() | pass.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "INFORMATION CAN'T BE EMPTY", "ERROR", JOptionPane.CANCEL_OPTION);
+                JOptionPane.showMessageDialog(null, "INFORMATION CAN NOT BE EMPTY", "ERROR", JOptionPane.CANCEL_OPTION);
+                
             } else {
                 for (Account account : this.account) {
                     if (account.getName().equalsIgnoreCase(name) && (String.valueOf(account.getPass()).equalsIgnoreCase(pass))) {
@@ -48,20 +42,42 @@ public class AccountManager {
         }
         return check ;
     }
-    public void LoadAccount() {
+    public boolean addAccount( String name, String pass, String gmail){
+        boolean check = false;
         try {
-            Class.forName(driver);
-            Connection conn = DriverManager.getConnection(url, user, password);
+            SQLConnector.GetForName();
+            Connection conn = SQLConnector.GetConnection();
+            String sql = "insert into account values (?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, pass);
+            ps.setString(3, gmail);
+            int n = ps.executeUpdate();
+            if (n != 0) {               
+                Account _account = new Account( name, pass, gmail);
+                this.account.add(_account);   
+                check = true ; 
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return check;
+    }
+    public void LoadAccount() {
+        account.clear();
+        try {
+            SQLConnector.GetForName();
+            Connection conn = SQLConnector.GetConnection();
             String sql = "select * from account ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             int n = 1;
             while (rs.next()) {
-                int id = rs.getInt("idUser");
                 String name = rs.getString("username");
                 String pass = rs.getString("pass");
                 String gmail = rs.getString("gmail");
-                Account _account = new Account(id, name, pass, gmail);
+                Account _account = new Account( name, pass, gmail);
                 this.account.add(_account);
             }
             rs.close();

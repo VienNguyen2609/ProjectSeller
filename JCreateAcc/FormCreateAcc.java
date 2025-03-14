@@ -1,14 +1,12 @@
 package JCreateAcc;
+
+import DataFromSQL.AccountManager;
 import Jlogin.LoginUser;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.beans.Statement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 public class FormCreateAcc extends javax.swing.JFrame {
 
     public FormCreateAcc() {
@@ -16,17 +14,13 @@ public class FormCreateAcc extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
+
     // bắt lổi tiếng việt 
     public static boolean containsVietnameseCharacters(String text) {
         String vietnamesePattern = ".*[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ].*";
         return text.matches(vietnamesePattern);
     }
-    String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    String url = "jdbc:sqlserver://localhost:1433;databaseName=USERLOGIN;user=sa;password=26092005;encrypt= false;";
-    String user = "sa";
-    String password = "26092005";
-    Statement st;
-    ResultSet rs;
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -81,6 +75,7 @@ public class FormCreateAcc extends javax.swing.JFrame {
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         txtpass.setBackground(new java.awt.Color(153, 255, 255));
+        txtpass.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         getContentPane().add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 160, -1));
 
         txtconfirm.setBackground(new java.awt.Color(153, 255, 255));
@@ -192,61 +187,54 @@ public class FormCreateAcc extends javax.swing.JFrame {
     }//GEN-LAST:event_showConfirmActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        int dk = JOptionPane.showConfirmDialog(this, "Yes to confirm", "CONFIRM", JOptionPane.YES_NO_OPTION);
+        int dk = JOptionPane.showConfirmDialog(this, "COFIRM CREATING", "CONFIRM", JOptionPane.YES_NO_OPTION);
         if (dk != JOptionPane.YES_OPTION) {
             return;
         }
+        AccountManager.Init();
+        AccountManager.instance.LoadAccount();
         try {
-            if (txtname.getText().equals("") | txtgmail.getText().equals("") | txtpass.getText().equals("") | txtconfirm.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "INFORMATION CAN'T BE EMPTY");
+            String name = this.txtname.getText().trim();
+            String pass = this.txtpass.getText().trim();
+            String gmail = this.txtgmail.getText().trim();
+            if(name.equalsIgnoreCase("")||pass.equalsIgnoreCase("") ||gmail.equalsIgnoreCase("")){
+                JOptionPane.showMessageDialog(this, "INFORMATION CAN NOT  BE EMPTY");
                 return;
             }
-            if (txtpass.getText() == null || !txtconfirm.getText().equals(txtpass.getText())) {
-                int b = JOptionPane.showConfirmDialog(this, " PASSWORD DO NOT MATCH", "CONFIRM", JOptionPane.CLOSED_OPTION);
+             if (pass.isEmpty()  || !txtconfirm.getText().equalsIgnoreCase(pass)) {
+                JOptionPane.showConfirmDialog(this, " PASSWORD DO NOT MATCH", "CONFIRM", JOptionPane.CLOSED_OPTION);
                 return;
             }
-            if (!txtgmail.getText().contains("@gmail.com")) {
+             if (!gmail.contains("@gmail.com")) {
                 JOptionPane.showMessageDialog(this, "GMAIL FALSE ! ");
                 return;
-            }
-            String inputText = txtname.getText();
+            }           
+            String inputText = name;
             if (containsVietnameseCharacters(inputText)) {
-                JOptionPane.showMessageDialog(this, "USER NAME FALSE ! ");
+                JOptionPane.showMessageDialog(this, "USER NAME ERROR! ");
                 return;
-            }
-            Class.forName(driver);
-            Connection conn = DriverManager.getConnection(url, user, password);
-            String sql = "insert into ACCOUNT values (?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, txtname.getText().trim());
-            ps.setString(2, txtpass.getText().trim());
-            ps.setString(3, txtgmail.getText().trim());
-            int n = ps.executeUpdate();
-            if (n != 0) {
-                JOptionPane.showMessageDialog(this, "ACCOUNT CREATED SUCCESSFULLY");
-                int a = JOptionPane.showConfirmDialog(this, "BACK TO LOGIN", "CONFIRM", JOptionPane.YES_NO_OPTION);
-                if (a == JOptionPane.YES_OPTION) {
-                    LoginUser lu = new LoginUser();
-                    lu.setVisible(true);
-                    this.dispose();
-                } else {
-                    return;
+            }            
+            if (AccountManager.instance.addAccount(name, pass, gmail)) {
+                JOptionPane.showMessageDialog(this, "CREATE ACCOUNT SUCCESFULLY!");
+                int a = JOptionPane.showConfirmDialog(this, "GO TO LOGIN!", "CONFIRM", JOptionPane.YES_NO_OPTION);
+                if(a == JOptionPane.YES_OPTION){
+                new LoginUser().setVisible(true);
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "ERROR, CAN'T CREATE ACCOUNT");
+                else{
+                    return ;
+                }
             }
-            ps.close();
-            conn.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "ERROR: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void showPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPassMouseClicked
-        if(showPass.isSelected())
-             txtpass.setEchoChar((char)0);    
+        if (showPass.isSelected())
+            txtpass.setEchoChar((char) 0);
         else
-          txtpass.setEchoChar('*');
+            txtpass.setEchoChar('*');
     }//GEN-LAST:event_showPassMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -270,8 +258,8 @@ public class FormCreateAcc extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               FormCreateAcc fca = new FormCreateAcc();
-               fca.setVisible(true);
+                FormCreateAcc fca = new FormCreateAcc();
+                fca.setVisible(true);
             }
         });
     }

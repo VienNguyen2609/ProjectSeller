@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Production;
 
 import java.util.Objects;
-import java.util.Scanner;
 
-public abstract class FootWear {
+public abstract class FootWear { 
     private String  name; 
     private int quantity; 
     private double price ; 
