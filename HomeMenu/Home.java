@@ -1,6 +1,6 @@
 package HomeMenu;
 
-import ClassAccount.Account;
+import Account.Account;
 import Production.Shoes;
 import Jlogin.LoginUser;
 import DataFromSQL.AccountManager;

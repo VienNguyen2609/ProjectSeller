@@ -1,8 +1,7 @@
 package DataFromSQL;
 
-import ConnectSQL.SQLConnector;
+import SQLConnection.SQLConnector;
 import Production.Shoes;
-import java.awt.TextField;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

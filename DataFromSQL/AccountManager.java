@@ -1,8 +1,8 @@
 
 package DataFromSQL;
 
-import ClassAccount.Account;
-import ConnectSQL.SQLConnector;
+import Account.Account;
+import SQLConnection.SQLConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
