@@ -5,14 +5,18 @@ import Production.Shoes;
 import Jlogin.LoginUser;
 import DataFromSQL.AccountManager;
 import DataFromSQL.ProductManager;
+import com.sun.source.tree.ContinueTree;
 import java.awt.Image;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Home extends javax.swing.JFrame {
 
@@ -27,10 +31,10 @@ public class Home extends javax.swing.JFrame {
         this.btnFindP.show(a);
         this.btnEditP.show(a);
         this.btnFind1.show(b);
-        this.btnCancel2.show(b); 
+        this.btnCancel2.show(b);
     }
     private static int pos = 0;
-    private static int stateAddEdit = 0;
+    private static int state = 0;
 
     public Home() {
         this.setLocationByPlatform(true);
@@ -46,6 +50,7 @@ public class Home extends javax.swing.JFrame {
         }
 
     }
+
     public boolean View() {
         this.txtID.setText("");
         this.txtNameProduct.setText("");
@@ -56,6 +61,24 @@ public class Home extends javax.swing.JFrame {
         OnOff(true, false);
         LoadTableProduct();
         return true;
+    }
+
+    public void clickMouseTableProduct() {
+        int selectedRow = tbProduct.getSelectedRow();
+        if (selectedRow != -1) {
+            String id = tbProduct.getValueAt(selectedRow, 1).toString();
+            String name = tbProduct.getValueAt(selectedRow, 2).toString();
+            double size = (Double) tbProduct.getValueAt(selectedRow, 3);
+            double price = (Double) tbProduct.getValueAt(selectedRow, 4);
+            int quantity = (Integer) tbProduct.getValueAt(selectedRow, 5);
+            String color = tbProduct.getValueAt(selectedRow, 6).toString();
+            txtID.setText(id);
+            txtNameProduct.setText(name);
+            txtSize.setText((int) size + "");
+            txtPrice.setText((int) price + "");
+            txtQuantity.setText(quantity + "");
+            txtColor.setText(color);
+        }
     }
 
     public void ViewProduct() throws SQLException, ClassCastException {
@@ -195,16 +218,16 @@ public class Home extends javax.swing.JFrame {
         jLabel51 = new javax.swing.JLabel();
         BillProduct = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbBillProduct = new javax.swing.JTable();
         editProduct = new javax.swing.JPanel();
         homeEdit = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         homeEditP = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
+        labelSize = new javax.swing.JLabel();
+        labelPrice = new javax.swing.JLabel();
+        labelColor = new javax.swing.JLabel();
+        labelQuantity = new javax.swing.JLabel();
         txtNameProduct = new javax.swing.JTextField();
         txtSize = new javax.swing.JTextField();
         txtPrice = new javax.swing.JTextField();
@@ -213,13 +236,13 @@ public class Home extends javax.swing.JFrame {
         btnAddP = new javax.swing.JButton();
         btnDeleteP = new javax.swing.JButton();
         btnSaveP = new javax.swing.JButton();
-        btnFindP = new javax.swing.JButton();
         btnEditP = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         btnCancel1 = new javax.swing.JButton();
         btnFind1 = new javax.swing.JButton();
         btnCancel2 = new javax.swing.JButton();
+        btnFindP = new javax.swing.JButton();
         tableList = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbProduct = new javax.swing.JTable();
@@ -263,6 +286,9 @@ public class Home extends javax.swing.JFrame {
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel11MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel11MouseEntered(evt);
             }
         });
         Main.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 0, 30, 30));
@@ -318,11 +344,6 @@ public class Home extends javax.swing.JFrame {
                 jButton4MouseClicked(evt);
             }
         });
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
         pnMenu.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 140, -1));
 
         jButton5.setBackground(new java.awt.Color(204, 255, 255));
@@ -370,7 +391,7 @@ public class Home extends javax.swing.JFrame {
 
         homeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconProduct/ImageHome.png"))); // NOI18N
         homeLabel.setText("jLabel3");
-        home.add(homeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1120, 590));
+        home.add(homeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1130, 590));
 
         pnContainer.add(home, "card2");
 
@@ -671,7 +692,7 @@ public class Home extends javax.swing.JFrame {
 
         pnContainer.add(homeShop, "card4");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbBillProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -682,7 +703,7 @@ public class Home extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbBillProduct);
 
         javax.swing.GroupLayout BillProductLayout = new javax.swing.GroupLayout(BillProduct);
         BillProduct.setLayout(BillProductLayout);
@@ -706,48 +727,50 @@ public class Home extends javax.swing.JFrame {
         editProduct.setPreferredSize(new java.awt.Dimension(840, 550));
         editProduct.setLayout(new java.awt.CardLayout());
 
-        homeEdit.setBackground(new java.awt.Color(0, 0, 0));
+        homeEdit.setBackground(new java.awt.Color(153, 153, 153));
 
-        jLabel15.setBackground(new java.awt.Color(204, 204, 255));
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(204, 204, 255));
+        jLabel15.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(51, 255, 0));
         jLabel15.setText("PRODUCT MANAGEMENT");
 
-        homeEditP.setBackground(new java.awt.Color(0, 0, 0));
+        homeEditP.setBackground(new java.awt.Color(153, 153, 153));
+        homeEditP.setForeground(new java.awt.Color(153, 153, 153));
         homeEditP.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Name:");
         homeEditP.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 125, 62, -1));
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Size:");
-        homeEditP.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 171, 62, -1));
+        labelSize.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelSize.setText("Size:");
+        homeEditP.add(labelSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 171, 62, -1));
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Price:");
-        homeEditP.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 214, 62, -1));
+        labelPrice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelPrice.setText("Price:");
+        homeEditP.add(labelPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 214, 62, -1));
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Color:");
-        homeEditP.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 304, -1, -1));
+        labelColor.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelColor.setText("Color:");
+        homeEditP.add(labelColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 304, -1, -1));
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("Quantity:");
-        homeEditP.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 259, -1, -1));
+        labelQuantity.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        labelQuantity.setText("Quantity:");
+        homeEditP.add(labelQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 259, -1, -1));
 
+        txtNameProduct.setBackground(new java.awt.Color(153, 153, 153));
         txtNameProduct.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNameProduct.setForeground(new java.awt.Color(255, 255, 255));
         homeEditP.add(txtNameProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 126, 189, -1));
 
+        txtSize.setBackground(new java.awt.Color(153, 153, 153));
         txtSize.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtSize.setForeground(new java.awt.Color(255, 255, 255));
         homeEditP.add(txtSize, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 170, 125, -1));
 
+        txtPrice.setBackground(new java.awt.Color(153, 153, 153));
         txtPrice.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPrice.setForeground(new java.awt.Color(255, 255, 255));
         txtPrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPriceActionPerformed(evt);
@@ -755,10 +778,14 @@ public class Home extends javax.swing.JFrame {
         });
         homeEditP.add(txtPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 215, 125, -1));
 
+        txtQuantity.setBackground(new java.awt.Color(153, 153, 153));
         txtQuantity.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtQuantity.setForeground(new java.awt.Color(255, 255, 255));
         homeEditP.add(txtQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 260, 125, -1));
 
+        txtColor.setBackground(new java.awt.Color(153, 153, 153));
         txtColor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtColor.setForeground(new java.awt.Color(255, 255, 255));
         homeEditP.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 305, 125, -1));
 
         btnAddP.setBackground(new java.awt.Color(204, 255, 255));
@@ -768,7 +795,7 @@ public class Home extends javax.swing.JFrame {
                 btnAddPActionPerformed(evt);
             }
         });
-        homeEditP.add(btnAddP, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 390, 76, -1));
+        homeEditP.add(btnAddP, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 390, 80, -1));
 
         btnDeleteP.setBackground(new java.awt.Color(204, 255, 255));
         btnDeleteP.setText("DELETE");
@@ -786,16 +813,7 @@ public class Home extends javax.swing.JFrame {
                 btnSavePActionPerformed(evt);
             }
         });
-        homeEditP.add(btnSaveP, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 349, -1, -1));
-
-        btnFindP.setBackground(new java.awt.Color(204, 255, 255));
-        btnFindP.setText("FIND");
-        btnFindP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindPActionPerformed(evt);
-            }
-        });
-        homeEditP.add(btnFindP, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 431, 76, -1));
+        homeEditP.add(btnSaveP, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, -1, -1));
 
         btnEditP.setBackground(new java.awt.Color(204, 255, 255));
         btnEditP.setText("EDIT");
@@ -806,11 +824,13 @@ public class Home extends javax.swing.JFrame {
         });
         homeEditP.add(btnEditP, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 431, -1, -1));
 
+        jLabel2.setBackground(new java.awt.Color(204, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ID:");
         homeEditP.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 82, 37, -1));
 
+        txtID.setBackground(new java.awt.Color(153, 153, 153));
+        txtID.setForeground(new java.awt.Color(255, 255, 255));
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIDActionPerformed(evt);
@@ -825,7 +845,7 @@ public class Home extends javax.swing.JFrame {
                 btnCancel1ActionPerformed(evt);
             }
         });
-        homeEditP.add(btnCancel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 349, -1, -1));
+        homeEditP.add(btnCancel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 349, 80, -1));
 
         btnFind1.setBackground(new java.awt.Color(204, 255, 255));
         btnFind1.setText("FIND");
@@ -834,7 +854,7 @@ public class Home extends javax.swing.JFrame {
                 btnFind1ActionPerformed(evt);
             }
         });
-        homeEditP.add(btnFind1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, -1, -1));
+        homeEditP.add(btnFind1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, 80, -1));
 
         btnCancel2.setBackground(new java.awt.Color(204, 255, 255));
         btnCancel2.setText("CANCEL!");
@@ -844,6 +864,15 @@ public class Home extends javax.swing.JFrame {
             }
         });
         homeEditP.add(btnCancel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
+
+        btnFindP.setBackground(new java.awt.Color(204, 255, 255));
+        btnFindP.setText("FIND");
+        btnFindP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindPActionPerformed(evt);
+            }
+        });
+        homeEditP.add(btnFindP, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, 76, -1));
 
         tableList.setBackground(new java.awt.Color(0, 0, 0));
         tableList.setForeground(new java.awt.Color(255, 255, 255));
@@ -900,17 +929,14 @@ public class Home extends javax.swing.JFrame {
         homeEditLayout.setHorizontalGroup(
             homeEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homeEditLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(homeEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(homeEditLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(homeEditP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94)
-                        .addComponent(tableList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(homeEditLayout.createSequentialGroup()
-                        .addGap(441, 441, 441)
-                        .addComponent(jLabel15)))
+                    .addComponent(homeEditP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94)
+                .addComponent(tableList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         homeEditLayout.setVerticalGroup(
@@ -920,12 +946,11 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(homeEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(homeEditLayout.createSequentialGroup()
-                        .addGroup(homeEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tableList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(homeEditP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(tableList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(homeEditP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(homeEditLayout.createSequentialGroup()
+                .addComponent(jScrollPane2)
                 .addGap(3, 3, 3))
         );
 
@@ -935,7 +960,7 @@ public class Home extends javax.swing.JFrame {
 
         Main.add(pnContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 33, 1120, 590));
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 204));
+        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
         jPanel1.setForeground(new java.awt.Color(255, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -992,23 +1017,25 @@ public class Home extends javax.swing.JFrame {
         homeEditP.setVisible(false);
         tableList.setVisible(false);
         tbSQLAccount.setVisible(false);
+        BillProduct.setVisible(false);
+        tbBillProduct.setVisible(false);
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        threesoc.setVisible(true);
+        BillProduct.setVisible(false);
         Account.setVisible(false);
         home.setVisible(false);
         editProduct.setVisible(true);
-        threesoc.setVisible(true);
         homeShop.setVisible(false);
         homeEdit.setVisible(true);
         homeEditP.setVisible(true);
-        tableList.setVisible(true);
+        tableList.setVisible(false);
         tbSQLAccount.setVisible(false);
+        tbAccount.setVisible(false);
+        tbBillProduct.setVisible(false);
+        tbProduct.setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         int dk = JOptionPane.showConfirmDialog(this, "SIGNOUT ACCOUNT CURRENTLY ?", "CONFIRM", JOptionPane.YES_NO_OPTION);
@@ -1036,21 +1063,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7MouseClicked
 
     private void tbProductMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductMouseReleased
-        int selectedRow = tbProduct.getSelectedRow();
-        if (selectedRow != -1) {
-            String id = tbProduct.getValueAt(selectedRow, 1).toString();
-            String name = tbProduct.getValueAt(selectedRow, 2).toString();
-            double size = (Double) tbProduct.getValueAt(selectedRow, 3);
-            double price = (Double) tbProduct.getValueAt(selectedRow, 4);
-            int quantity = (Integer) tbProduct.getValueAt(selectedRow, 5);
-            String color = tbProduct.getValueAt(selectedRow, 6).toString();
-            txtID.setText(id);
-            txtNameProduct.setText(name);
-            txtSize.setText((int) size + "");
-            txtPrice.setText((int) price + "");
-            txtQuantity.setText(quantity + "");
-            txtColor.setText(color);
-        }
+        clickMouseTableProduct();
     }//GEN-LAST:event_tbProductMouseReleased
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -1063,7 +1076,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_ProductShop1MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        closeMenuBar();
+
         threesoc.setVisible(true);
         BillProduct.setVisible(true);
         Account.setVisible(false);
@@ -1075,7 +1088,59 @@ public class Home extends javax.swing.JFrame {
         tableList.setVisible(false);
         tbSQLAccount.setVisible(false);
         tbAccount.setVisible(false);
+        tbProduct.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jLabel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseEntered
+
+
+    }//GEN-LAST:event_jLabel11MouseEntered
+
+    private void btnFindPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindPActionPerformed
+        OnOff(true, false);
+        this.btnCancel2.setVisible(true);
+        this.btnFind1.setVisible(true);
+        this.btnFindP.setVisible(false);
+        //        this.labelSize.setVisible(false);
+        //        this.labelPrice.setVisible(false);
+        //        this.labelQuantity.setVisible(false);
+        //        this.labelColor.setVisible(false);
+        //        this.txtSize.setVisible(false);
+        //        this.txtPrice.setVisible(false);
+        //        this.txtQuantity.setVisible(false);
+        //        this.txtColor.setVisible(false);
+    }//GEN-LAST:event_btnFindPActionPerformed
+
+    private void btnCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel2ActionPerformed
+        View();
+    }//GEN-LAST:event_btnCancel2ActionPerformed
+
+    private void btnFind1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFind1ActionPerformed
+        try {
+            String id = this.txtID.getText().trim();
+            String name = this.txtNameProduct.getText().trim();
+            //            this.labelSize.setVisible(true);
+            //            this.labelPrice.setVisible(true);
+            //            this.labelQuantity.setVisible(true);
+            //            this.labelColor.setVisible(true);
+            //            this.txtSize.setVisible(true);
+            //            this.txtPrice.setVisible(true);
+            //            this.txtQuantity.setVisible(true);
+            //            this.txtColor.setVisible(true);
+            if (id.isEmpty() && name.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "PLEASE ENTER VALID NUMERIC VALUES FOR SIZE, PRICE, AND QUANTITY", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            ProductManager.instance.FindProduct(id, name, tbProduct);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnFind1ActionPerformed
+
+    private void btnCancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel1ActionPerformed
+        View();
+    }//GEN-LAST:event_btnCancel1ActionPerformed
 
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
@@ -1084,50 +1149,57 @@ public class Home extends javax.swing.JFrame {
     private void btnEditPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditPActionPerformed
         OnOff(false, true);
         this.btnCancel2.setVisible(false);
-        this.btnFind1.setVisible(false);   
-        stateAddEdit = -1;
+        this.btnFind1.setVisible(false);
+        state = -1;
     }//GEN-LAST:event_btnEditPActionPerformed
-
-    private void btnFindPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindPActionPerformed
-        OnOff(false, false);
-        this.btnCancel2.setVisible(true);
-        this.btnFind1.setVisible(true);             
-    }//GEN-LAST:event_btnFindPActionPerformed
 
     private void btnSavePActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSavePActionPerformed
         try {
-            String id = this.txtID.getText().trim();
-            String name = this.txtNameProduct.getText().trim();
-            int size = Integer.parseInt(this.txtSize.getText().trim());
-            double price = Double.parseDouble(this.txtPrice.getText().trim());
-            int quantity = Integer.parseInt(this.txtQuantity.getText().trim());
-            String coler = this.txtColor.getText().trim();
-            if (stateAddEdit == 1) {
-                if (ProductManager.instance.addProduct(id, name, size, price, quantity, coler)) {
+            String idtext = this.txtID.getText().trim();
+            String nametext = this.txtNameProduct.getText().trim();
+            String sizetext = this.txtSize.getText().trim();
+            String pricetext = this.txtPrice.getText().trim();
+            String quantitytext = this.txtQuantity.getText().trim();
+            String color = this.txtColor.getText().trim();
+            if (idtext.isEmpty() || nametext.isEmpty() || sizetext.isEmpty() || pricetext.isEmpty() || quantitytext.isEmpty() || color.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "PLEASE ENTER ALL INFORMATION", "WARNING", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            int size;
+            double price;
+            int quantity;
+
+            try {
+                size = Integer.parseInt(sizetext);
+                price = Double.parseDouble(sizetext);
+                quantity = Integer.parseInt(quantitytext);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "PLEASE ENTER VALID NUMERIC VALUES FOR SIZE, PRICE, AND QUANTITY", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (state == 1) {
+                if (ProductManager.instance.addProduct(idtext, nametext, size, price, quantity, color)) {
                     LoadTableProduct();
                     View();
                     OnOff(true, false);
                     JOptionPane.showMessageDialog(this, "PRODUCT ADDED SUCCESSFULLY");
                 }
             }
-            if (stateAddEdit == -1) {
-                if (ProductManager.instance.EditProduct(name, size, price, quantity, coler, id)) {
+            if (state == -1) {
+                if (ProductManager.instance.EditProduct(nametext, size, price, quantity, color, idtext)) {
                     LoadTableProduct();
                     View();
                     OnOff(true, false);
                     JOptionPane.showMessageDialog(this, "PRODUCT EDITED SUCCESSFULLY");
-
+                } else {
+                    JOptionPane.showMessageDialog(this, "CAN NOT EDITING THIS PRODUCT");
                 }
-            }            
-        }  catch (Exception e) {
+            }
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSavePActionPerformed
-
-    private void btnCancel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel2ActionPerformed
-        View();
-       
-    }//GEN-LAST:event_btnCancel2ActionPerformed
 
     private void btnDeletePActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePActionPerformed
         try {
@@ -1155,31 +1227,13 @@ public class Home extends javax.swing.JFrame {
     private void btnAddPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPActionPerformed
         OnOff(false, true);
         this.btnCancel2.setVisible(false);
-        this.btnFind1.setVisible(false);   
-        stateAddEdit = 1;
+        this.btnFind1.setVisible(false);
+        state = 1;
     }//GEN-LAST:event_btnAddPActionPerformed
 
     private void txtPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPriceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPriceActionPerformed
-
-    private void btnCancel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancel1ActionPerformed
-        View();
-    }//GEN-LAST:event_btnCancel1ActionPerformed
-
-    private void btnFind1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFind1ActionPerformed
-            try {
-            String id = this.txtID.getText().trim();
-            String name = this.txtNameProduct.getText().trim();    
-            double price = Double.parseDouble(this.txtPrice.getText().trim());
-            if (ProductManager.instance.FindProduct(id, name , price, tbProduct)) {         
-            } else {
-                JOptionPane.showMessageDialog(this, "NOT FOUNDED PRODUCT ID : " + id);
-            }
-        }  catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnFind1ActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -1241,11 +1295,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -1284,11 +1334,15 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel labelColor;
+    private javax.swing.JLabel labelPrice;
+    private javax.swing.JLabel labelQuantity;
+    private javax.swing.JLabel labelSize;
     private javax.swing.JPanel pnContainer;
     private javax.swing.JPanel pnMenu;
     private javax.swing.JPanel tableList;
     private javax.swing.JTable tbAccount;
+    private javax.swing.JTable tbBillProduct;
     private javax.swing.JTable tbProduct;
     private javax.swing.JPanel tbSQLAccount;
     private javax.swing.JLabel threesoc;

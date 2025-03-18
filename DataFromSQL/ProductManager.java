@@ -2,6 +2,7 @@ package DataFromSQL;
 
 import ConnectSQL.SQLConnector;
 import Production.Shoes;
+import java.awt.TextField;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 public final class ProductManager {
 
-    ArrayList<Shoes> shoes = new ArrayList<>();
+    ArrayList<Shoes> ListShoes = new ArrayList<>();
     //SINGLE TON
     public static ProductManager instance;
     private static boolean isInitiallized = false;
@@ -45,7 +46,7 @@ public final class ProductManager {
                 String color = rs.getString("color");
                 double totalPrice = price * quantity;
                 Shoes _shoes = new Shoes(idProduct, name, size, price, quantity, color);
-                this.shoes.add(_shoes);
+                ListShoes.add(_shoes);
             }
             rs.close();
             ps.close();
@@ -73,7 +74,7 @@ public final class ProductManager {
             int n = ps.executeUpdate();
             if (n > 0) {
                 Shoes _shoes = new Shoes(idProduct, name, size, price, quantity, color);
-                this.shoes.add(_shoes);
+                ListShoes.add(_shoes);
                 check = true;
             }
             ps.close();
@@ -88,6 +89,7 @@ public final class ProductManager {
 
     public boolean EditProduct(String name, int size, double price, int quantity, String color, String idProduct) {
         boolean check = false;
+
         try {
             SQLConnector.GetForName();
             Connection conn = SQLConnector.GetConnection();
@@ -100,15 +102,15 @@ public final class ProductManager {
             updatePs.setString(5, color);
             updatePs.setString(6, idProduct);
             int rowsAffected = updatePs.executeUpdate();
-            if (rowsAffected > 0) {    
-                for(Shoes shoes: this.shoes){
-                    if(shoes.getIdProduct().contentEquals(idProduct)){
+            if (rowsAffected > 0) {
+                for (Shoes shoes : ListShoes) {
+                    if (shoes.getIdProduct().contentEquals(idProduct)) {
                         shoes.setName(name);
                         shoes.setSize(size);
                         shoes.setQuantity(quantity);
                         shoes.setPrice(price);
                         shoes.setColor(color);
-                        check = true; 
+                        check = true;
                         break;
                     }
                 }
@@ -122,23 +124,24 @@ public final class ProductManager {
         return check;
     }
 
-    public boolean FindProduct(String idProduct, String name, double price, JTable tbProduct) {
-        boolean check = false;
+    public void FindProduct(String idProduct, String name, JTable tbProduct) {
+        DefaultTableModel model = (DefaultTableModel) tbProduct.getModel();
+        model.setNumRows(0);
+        int temp = 0;
         try {
-          for (Shoes shoes : this.shoes) {
-                if (shoes.getIdProduct().equalsIgnoreCase(idProduct) || shoes.getName().equalsIgnoreCase(name)
-                        || shoes.getPrice() == price) {
-                    DefaultTableModel model = (DefaultTableModel) tbProduct.getModel();
-                    model.setNumRows(0);
-                    int a = this.shoes.indexOf(shoes);
+            for (Shoes shoes : ListShoes) {
+                if (shoes.getIdProduct().equalsIgnoreCase(idProduct) || shoes.getName().equalsIgnoreCase(name)) {
+                    temp++;
+                    int a = ListShoes.indexOf(shoes);
                     model.addRow(new Object[]{a++, shoes.getIdProduct(), shoes.getName(), shoes.getSize(), shoes.getPrice(), shoes.getQuantity(), shoes.getColor(), shoes.totalPrice()});
-                    check = true;
                 }
+            }
+            if (temp == 0) {
+                JOptionPane.showMessageDialog(null, "ID: " + idProduct + "\nNAME: " + name + "   \nFAILD!");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        return check;
     }
 
     public boolean DeleteProduct(String idProduct, String name, int size, double price, int quantity, String color) {
@@ -146,14 +149,14 @@ public final class ProductManager {
         try {
             SQLConnector.GetForName();
             Connection conn = SQLConnector.GetConnection();
-            String deleteProduct = "delete from productSeller where id = ?  ";
+            String deleteProduct = "delete from productSeller where idProduct = ?  ";
             PreparedStatement ps = conn.prepareStatement(deleteProduct);
             ps.setString(1, idProduct);
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
-                for (Shoes shoes : this.shoes) {
+                for (Shoes shoes : ListShoes) {
                     if (shoes.getIdProduct().equalsIgnoreCase(idProduct)) {
-                        this.shoes.remove(shoes);
+                        ListShoes.remove(shoes);
                         check = true;
                         break;
                     }
@@ -166,6 +169,6 @@ public final class ProductManager {
     }
 
     public ArrayList<Shoes> GetDataProduct() {
-        return shoes;
+        return ListShoes;
     }
 }

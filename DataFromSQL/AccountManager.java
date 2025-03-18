@@ -89,7 +89,29 @@ public class AccountManager {
             JOptionPane.showMessageDialog(null, "Unexpected error: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    public boolean DeleteAccount(String name){
+        boolean check = false;
+        try {
+            SQLConnector.GetForName();
+            Connection conn = SQLConnector.GetConnection(); 
+            String DeleteAccount = "Delete From account where name =?";
+            PreparedStatement ps = conn.prepareStatement(DeleteAccount); 
+            ps.setString(1, name);
+            int n = ps.executeUpdate(); 
+            if(n > 0 ){ 
+                for(Account account : this.account){
+                    if(account.getName().equalsIgnoreCase(name)){
+                        this.account.remove(account);
+                        check = true ; 
+                        break;
+                    }
+                }
+            }
+        }catch(Exception e ){
+            JOptionPane.showMessageDialog(null,"ERROR: " + e.getMessage());
+        }
+        return check ; 
+    }
     public ArrayList<Account> getDataAccount() {
         return account;
     }
