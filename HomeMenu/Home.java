@@ -960,7 +960,7 @@ public class Home extends javax.swing.JFrame {
 
         Main.add(pnContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 33, 1120, 590));
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setForeground(new java.awt.Color(255, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

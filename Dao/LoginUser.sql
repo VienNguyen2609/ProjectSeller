@@ -5,8 +5,8 @@ go
 create table account(
 idUser int  IDENTITY(1,1) primary key , 
 username varchar(20) unique NOT NULL , 
-pass varchar(10) NOT NULL, 
-gmail nchar(50 ) NOT NULL  
+pass varchar(20) NOT NULL, 
+gmail varchar(50 ) NOT NULL  
 ) 
 
 create table productSeller(

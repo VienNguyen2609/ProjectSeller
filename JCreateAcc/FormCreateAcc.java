@@ -2,10 +2,13 @@ package JCreateAcc;
 
 import DataFromSQL.AccountManager;
 import Jlogin.LoginUser;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class FormCreateAcc extends javax.swing.JFrame {
 
@@ -13,6 +16,25 @@ public class FormCreateAcc extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        addPlaceHolderStyle(txtname);
+        addPlaceHolderStyle(txtpass);
+        addPlaceHolderStyle(txtgmail);
+        addPlaceHolderStyle(txtconfirm);
+
+    }
+
+    public void addPlaceHolderStyle(JTextField textField) {
+        Font font = textField.getFont();
+        font = font.deriveFont(Font.ITALIC);
+        textField.setFont(font);
+        textField.setForeground(Color.darkGray);
+    }
+
+    public void removePlaceHolderStyle(JTextField textField) {
+        Font font = textField.getFont();
+        font = font.deriveFont(Font.PLAIN | Font.BOLD);
+        textField.setFont(font);
+        textField.setForeground(Color.darkGray);
     }
 
     // bắt lổi tiếng việt 
@@ -21,17 +43,11 @@ public class FormCreateAcc extends javax.swing.JFrame {
         return text.matches(vietnamesePattern);
     }
 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
         cr = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtpass = new javax.swing.JPasswordField();
         txtconfirm = new javax.swing.JPasswordField();
         txtname = new javax.swing.JTextField();
         txtgmail = new javax.swing.JTextField();
@@ -43,15 +59,18 @@ public class FormCreateAcc extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        txtpass = new javax.swing.JPasswordField();
         image = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("CofirmPass:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
         cr.setBackground(new java.awt.Color(153, 255, 153));
         cr.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
@@ -59,37 +78,48 @@ public class FormCreateAcc extends javax.swing.JFrame {
         cr.setText("CREATE ACCOUNT");
         getContentPane().add(cr, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, 20));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Password:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Name:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Gmail:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
-
-        txtpass.setBackground(new java.awt.Color(153, 255, 255));
-        txtpass.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        getContentPane().add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 160, -1));
-
         txtconfirm.setBackground(new java.awt.Color(153, 255, 255));
+        txtconfirm.setText("ReEnterPass....");
+        txtconfirm.setEchoChar('\u0000');
+        txtconfirm.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtconfirmFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtconfirmFocusLost(evt);
+            }
+        });
         getContentPane().add(txtconfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 160, -1));
 
         txtname.setBackground(new java.awt.Color(153, 255, 255));
+        txtname.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        txtname.setText("Name....");
+        txtname.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtnameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtnameFocusLost(evt);
+            }
+        });
         txtname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtnameActionPerformed(evt);
             }
         });
-        getContentPane().add(txtname, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 160, -1));
+        getContentPane().add(txtname, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 160, 20));
 
         txtgmail.setBackground(new java.awt.Color(153, 255, 255));
+        txtgmail.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        txtgmail.setText("Gmail.....");
+        txtgmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtgmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtgmailFocusLost(evt);
+            }
+        });
         getContentPane().add(txtgmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 162, 200, 20));
 
         showPass.setBackground(new java.awt.Color(0, 0, 0));
@@ -157,27 +187,25 @@ public class FormCreateAcc extends javax.swing.JFrame {
         jLabel9.setText("HIDE");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, -1, 20));
 
+        txtpass.setBackground(new java.awt.Color(153, 255, 255));
+        txtpass.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        txtpass.setText("Password....");
+        txtpass.setEchoChar('\u0000');
+        txtpass.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtpassFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtpassFocusLost(evt);
+            }
+        });
+        getContentPane().add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 160, 20));
+
         image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconImage/IconLogin.jpg"))); // NOI18N
         getContentPane().add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 350));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnameActionPerformed
-        txtname.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    txtpass.requestFocus();
-                    txtgmail.requestFocus();
-                    txtconfirm.requestFocus();
-                }
-            }
-        });
-        txtname.addActionListener(e -> txtpass.requestFocus());
-        txtpass.addActionListener(e -> txtgmail.requestFocus());
-        txtgmail.addActionListener(e -> txtconfirm.requestFocus());
-    }//GEN-LAST:event_txtnameActionPerformed
 
     private void showConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showConfirmActionPerformed
         if (showConfirm.isSelected())
@@ -197,35 +225,33 @@ public class FormCreateAcc extends javax.swing.JFrame {
             String name = this.txtname.getText().trim();
             String pass = this.txtpass.getText().trim();
             String gmail = this.txtgmail.getText().trim();
-            if(name.equalsIgnoreCase("")||pass.equalsIgnoreCase("") ||gmail.equalsIgnoreCase("")){
+            if (name.equalsIgnoreCase("") || pass.equalsIgnoreCase("") || gmail.equalsIgnoreCase("")) {
                 JOptionPane.showMessageDialog(this, "INFORMATION CAN NOT  BE EMPTY");
                 return;
             }
-             if (pass.isEmpty()  || !txtconfirm.getText().equalsIgnoreCase(pass)) {
+            if (pass.isEmpty() || !txtconfirm.getText().equalsIgnoreCase(pass)) {
                 JOptionPane.showConfirmDialog(this, " PASSWORD DO NOT MATCH", "CONFIRM", JOptionPane.CLOSED_OPTION);
                 return;
             }
-             if (!gmail.contains("@gmail.com")) {
+            if (!gmail.contains("@gmail.com")) {
                 JOptionPane.showMessageDialog(this, "GMAIL FALSE ! ");
                 return;
-            }           
+            }
             String inputText = name;
             if (containsVietnameseCharacters(inputText)) {
                 JOptionPane.showMessageDialog(this, "USER NAME ERROR! ");
                 return;
-            }            
+            }
             if (AccountManager.instance.addAccount(name, pass, gmail)) {
                 JOptionPane.showMessageDialog(this, "CREATE ACCOUNT SUCCESFULLY!");
                 int a = JOptionPane.showConfirmDialog(this, "GO TO LOGIN!", "CONFIRM", JOptionPane.YES_NO_OPTION);
-                if(a == JOptionPane.YES_OPTION){
-                new LoginUser().setVisible(true);
-                }
-                else{
-                    return ;
+                if (a == JOptionPane.YES_OPTION) {
+                    new LoginUser().setVisible(true);
+                } else {
+                    return;
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "ERROR: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1MouseClicked
@@ -255,6 +281,91 @@ public class FormCreateAcc extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void txtnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnameActionPerformed
+        txtname.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    txtpass.requestFocus();
+                    txtgmail.requestFocus();
+                    txtconfirm.requestFocus();
+                }
+            }
+        });
+        txtname.addActionListener(e -> txtpass.requestFocus());
+        txtpass.addActionListener(e -> txtgmail.requestFocus());
+        txtgmail.addActionListener(e -> txtconfirm.requestFocus());
+    }//GEN-LAST:event_txtnameActionPerformed
+
+    private void txtnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtnameFocusGained
+        if (txtname.getText().equals("Name....")) {
+            txtname.setText(null);
+            txtname.requestFocus();
+            removePlaceHolderStyle(txtname);
+        }
+    }//GEN-LAST:event_txtnameFocusGained
+
+    private void txtnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtnameFocusLost
+        if (txtname.getText().length() == 0) {
+            addPlaceHolderStyle(txtname);
+            txtname.setText("Name....");
+        }
+    }//GEN-LAST:event_txtnameFocusLost
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        this.requestFocusInWindow();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void txtpassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtpassFocusGained
+        if (txtpass.getText().equals("Password....")) {
+            txtpass.setText(null);
+            txtpass.requestFocus();
+            //txtpass.setEchoChar();
+            removePlaceHolderStyle(txtpass);
+        }
+    }//GEN-LAST:event_txtpassFocusGained
+
+    private void txtpassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtpassFocusLost
+        if (txtpass.getText().length() == 0) {
+            addPlaceHolderStyle(txtpass);
+            txtpass.setText("Password....");
+            txtpass.setEchoChar('\u0000');
+        }
+    }//GEN-LAST:event_txtpassFocusLost
+
+    private void txtgmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtgmailFocusGained
+        if (txtgmail.getText().equals("Gmail.....")) {
+            txtgmail.setText(null);
+            txtgmail.requestFocus();
+            //txtpass.setEchoChar();
+            removePlaceHolderStyle(txtgmail);
+        }
+    }//GEN-LAST:event_txtgmailFocusGained
+
+    private void txtgmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtgmailFocusLost
+        if (txtgmail.getText().length() == 0) {
+            addPlaceHolderStyle(txtgmail);
+            txtgmail.setText("Gmail.....");
+        }
+    }//GEN-LAST:event_txtgmailFocusLost
+
+    private void txtconfirmFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtconfirmFocusGained
+        if (txtconfirm.getText().equals("ReEnterPass....")) {
+            txtconfirm.setText(null);
+            txtconfirm.requestFocus();
+            //txtpass.setEchoChar();
+            removePlaceHolderStyle(txtconfirm);
+        }
+    }//GEN-LAST:event_txtconfirmFocusGained
+
+    private void txtconfirmFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtconfirmFocusLost
+        if (txtconfirm.getText().length() == 0) {
+            addPlaceHolderStyle(txtconfirm);
+            txtconfirm.setText("ReEnterPass....");
+            txtconfirm.setEchoChar('\u0000');
+        }
+    }//GEN-LAST:event_txtconfirmFocusLost
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -270,10 +381,6 @@ public class FormCreateAcc extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

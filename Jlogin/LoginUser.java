@@ -163,6 +163,7 @@ public class LoginUser extends javax.swing.JFrame {
             if (AccountManager.instance.LoginUser(name, pass)) {
                 JOptionPane.showMessageDialog(this, "LOGIN SUCCESFULLY");
                 new Home().setVisible(true);
+                //new LoginUser().setVisible(false);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "LOGIN FAILD!\n"
